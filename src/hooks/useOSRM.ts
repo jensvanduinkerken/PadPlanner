@@ -1,5 +1,5 @@
 import type { LatLng, RouteResult } from '../types/route';
-import { destinationPoint, targetDistanceKm } from '../utils/waypointMath';
+import { generateWaypoints, targetDistanceKm } from '../utils/waypointMath';
 
 // Use wheelchair routing mode - it prioritizes pedestrian paths and avoids highways
 // Much better for walking routes than foot mode
@@ -15,16 +15,10 @@ export function useOSRM() {
 
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
-        // Out & Back Split: generate 1-2 waypoints at half distance
-        // This creates an out-and-back route where OSRM finds different paths
+        // Out & Back Split: generate circular waypoints at ~half distance
+        // OSRM finds naturally divergent paths outbound and return
         const halfRadiusKm = radiusKm / 2;
-        const waypoints: LatLng[] = [];
-
-        // Add waypoint at ~90° (to the side) with slight variation per attempt
-        waypoints.push(destinationPoint(origin, halfRadiusKm, 90 + (attempt * 30)));
-
-        // Add second waypoint at ~270° for more natural out-and-back
-        waypoints.push(destinationPoint(origin, halfRadiusKm, 270 + (attempt * 30)));
+        const waypoints = generateWaypoints(origin, halfRadiusKm, 6);
 
         const allPoints = [origin, ...waypoints, origin];
 
