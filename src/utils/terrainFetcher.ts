@@ -226,8 +226,10 @@ export async function fetchTerrainWaypoints(
   count: number = 6
 ): Promise<LatLng[]> {
   const searchRadiusM = radiusKm * 1.5 * 1000;
-  const minDistKm = Math.max(0.3 * radiusKm, 0.1); // Avoid clustering at origin
-  const maxDistKm = Math.min(1.5 * radiusKm, 100); // Upper bound to avoid distant outliers
+  // Target waypoints at half-distance to avoid cul-de-sacs
+  // Allows OSRM to find different return paths
+  const minDistKm = Math.max(0.4 * radiusKm, 0.1); // ~40% of desired radius
+  const maxDistKm = Math.min(0.7 * radiusKm, 100); // ~70% of desired radius
 
   const query = buildOverpassQuery(origin, searchRadiusM);
   const data = await fetchOverpassData(query);

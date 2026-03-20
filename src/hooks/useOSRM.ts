@@ -24,12 +24,14 @@ export function useOSRM() {
 
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
-        // Use terrain waypoints if available, otherwise circular waypoints
+        // Hybrid approach: terrain-aware waypoints at half-distance
+        // Terrain waypoints are filtered to 40-70% of radius, ensuring OSRM
+        // can find different outbound/return paths (no cul-de-sacs)
         let waypoints: LatLng[];
         if (terrainWaypoints) {
           waypoints = terrainWaypoints;
         } else {
-          // Fallback: Out & Back Split with circular waypoints at ~half distance
+          // Fallback: circular waypoints at ~half distance
           const halfRadiusKm = radiusKm / 2;
           waypoints = generateWaypoints(origin, halfRadiusKm, 6);
         }
