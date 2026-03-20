@@ -1,40 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getRoute, initializeDatabase } from "@/lib/db";
 
-// Initialize database on first request
-let initialized = false;
-
+// Database functionality disabled - route fetching not available
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    // Ensure table exists
-    if (!initialized) {
-      await initializeDatabase();
-      initialized = true;
-    }
-
     const { id } = await params;
 
-    // Validate UUID format
-    const uuidRegex =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-    if (!uuidRegex.test(id)) {
-      return NextResponse.json({ error: "Invalid route ID" }, { status: 400 });
-    }
-
-    const route = await getRoute(id);
-
-    if (!route) {
-      return NextResponse.json({ error: "Route not found" }, { status: 404 });
-    }
-
-    return NextResponse.json({ success: true, route });
-  } catch (error) {
-    console.error("Error fetching route:", error);
     return NextResponse.json(
-      { error: "Failed to fetch route" },
+      {
+        error: "Route sharing disabled - database functionality not enabled",
+        message: "Routes are generated on-demand and not persisted"
+      },
+      { status: 404 }
+    );
+  } catch (error) {
+    console.error("Error processing request:", error);
+    return NextResponse.json(
+      { error: "Failed to process request" },
       { status: 500 },
     );
   }
