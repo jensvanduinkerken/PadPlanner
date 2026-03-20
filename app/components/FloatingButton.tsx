@@ -27,12 +27,12 @@ export default function FloatingButton({
   umamiEvent,
   umamiEventData = {},
 }: FloatingButtonProps) {
-  const baseClasses = `h-10 w-10 rounded-md transition-colors flex items-center justify-center`;
+  const baseClasses = `h-10 w-10 rounded-lg transition-all flex items-center justify-center shadow-sm hover:shadow-md active:scale-95`;
 
   const variantClasses = {
     default:
-      "dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 bg-white text-black hover:bg-gray-200",
-    active: "bg-amber-700 text-white hover:bg-amber-800",
+      "bg-amber-100 text-amber-700 hover:bg-amber-200 border border-amber-300",
+    active: "bg-amber-700 text-white hover:bg-amber-800 shadow-md",
   };
 
   const responsiveClasses = hideOnDesktop
@@ -41,8 +41,7 @@ export default function FloatingButton({
       ? "lg:w-fit lg:px-3 lg:gap-2"
       : "";
 
-  const borderClasses =
-    variant === "default" ? "border dark:border-gray-700 border-gray-200" : "";
+  const borderClasses = "";
 
   const umamiDataAttributes = Object.fromEntries(
     Object.entries(umamiEventData).map(([key, value]) => [
