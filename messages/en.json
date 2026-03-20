@@ -1,0 +1,77 @@
+{
+  "Sidebar": {
+    "title": "Route Random",
+    "subtitle": "A project made by",
+    "authorLink": "Lukas Olivier",
+    "aboutTitle": "About Route Random",
+    "aboutDescription1": "Route Random is a free random route generator that creates random circular routes for runners, joggers, and walkers. Generate random routes based on your desired distance and starting location anywhere in the world.",
+    "aboutDescription2": "Perfect for discovering new paths, exploring your neighborhood, or finding new routes to keep your workouts exciting.",
+    "language": "Language"
+  },
+  "SidebarForm": {
+    "distanceMode": "Distance",
+    "timeMode": "Time",
+    "desiredDistance": "Desired distance (in km):",
+    "distancePlaceholder": "e.g. 5 or 7.5",
+    "desiredDuration": "Desired Duration (in minutes):",
+    "timePlaceholder": "e.g. 30 or 45",
+    "pace": "Pace:",
+    "walkingPace": "Walking Pace (5 km/h)",
+    "runningPace": "Running Pace (10 km/h)",
+    "cyclingPace": "Cycling Pace (15 km/h)",
+    "startingLocation": "Starting Location",
+    "searchLocationPlaceholder": "Search starting location...",
+    "useCurrentLocation": "Use current location",
+    "geolocationNotSupported": "Geolocation is not supported by this browser.",
+    "locationError": "Unable to get your current location."
+  },
+  "Map": {
+    "startLocation": "Start Location",
+    "routeGenerated": "Route Generated!",
+    "distance": "Distance"
+  },
+  "MapLoading": {
+    "loadingText": "Loading your adventure..."
+  },
+  "DownloadButton": {
+    "downloadRoute": "Download route as GPX",
+    "ariaLabel": "Download route as GPX"
+  },
+  "FullScreenButton": {
+    "enterFullscreen": "Enter fullscreen",
+    "exitFullscreen": "Exit fullscreen"
+  },
+  "ShareButton": {
+    "ariaLabel": "Share route",
+    "shareRoute": "Share route"
+  },
+  "TrackUserLocationButton": {
+    "stopTracking": "Stop tracking location",
+    "trackLocation": "Track location",
+    "trackYourLocation": "Track location",
+    "geolocationNotSupported": "Geolocation is not supported by this browser.",
+    "unableToGetLocation": "Unable to get your location.",
+    "locationAccessDenied": "Location access denied. Please enable location permissions.",
+    "locationUnavailable": "Location information unavailable.",
+    "locationTimeout": "Location request timed out."
+  },
+  "Page": {
+    "toggleMenu": "Toggle menu",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit fullscreen"
+  },
+  "GenerateRouteButton": {
+    "generating": "Generating...",
+    "generateRoute": "Generate Route"
+  },
+  "ResetRouteButton": {
+    "reset": "Reset"
+  },
+  "AcceptRouteButton": {
+    "accept": "Accept"
+  },
+  "MapLoadingOverlay": {
+    "generatingRoute": "Generating your route...",
+    "pleaseWait": "Please wait..."
+  }
+}

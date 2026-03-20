@@ -1,73 +1,50 @@
-# React + TypeScript + Vite
+# <img src="public/logo-route-random.png" alt="Route Random Logo" width="48" height="48" style="vertical-align:middle;"> Route Random
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p>
+  <img src="https://img.shields.io/badge/React-61dafb?logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38bdf8?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Leaflet-199900?logo=leaflet&logoColor=white" alt="Leaflet" />
+  <img src="https://img.shields.io/badge/OpenRouteService-ff6600?logo=OpenStreetMap&logoColor=white" alt="OpenRouteService" />
+  <img src="https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white" alt="TypeScript" />
+</p>
 
-Currently, two official plugins are available:
+> **Discover new routes, anywhere.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Route Random is a modern web application built with **React** and **Next.js** that serves as your personal route generator. Instantly create unique, circular routes for walking, running, or cycling tailored to your distance and location. Whether you're training for a marathon, exploring a new city, or just want to shake up your daily routine, Route Random helps you find the perfect path.
 
-## React Compiler
+![Screenshot of Route Random](public/screenshot-desktop.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- **Smart Route Generation**: Get random, circular routes that start and end at your chosen point.
+- **Flexible Distance**: Set your desired distance—Route Random adapts the route for you.
+- **Location Search & Map Click**: Find your start by address or simply click on the map.
+- **Live Location Tracking**: Real-time GPS tracking with high accuracy positioning (mobile optimized).
+- **Overlap Detection**: Visual highlighting of route segments that cross each other in red.
+- **Export to GPX & GeoJSON**: Download routes for Garmin, Strava, or any fitness app.
+- **Privacy First**: No accounts, no tracking, no nonsense.
+- **Modern Tech Stack**: Built with React, Next.js, and TypeScript for optimal performance and developer experience.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Technical
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+This application showcases modern web development practices using:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Frontend**: React with Next.js
+- **Styling**: Tailwind CSS for responsive, utility-first design
+- **Maps**: Leaflet.js for interactive mapping functionality
+- **Geolocation**: Browser Geolocation API with watchPosition for continuous location updates
+- **Language**: TypeScript for type safety and better developer experience
+- **API Integration**: OpenRouteService for route calculation and geocoding
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🌍 Powered By
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This project would not be possible without these amazing open-source projects and services:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- [OpenStreetMap](https://www.openstreetmap.org/) – Free, editable map of the world
+- [Leaflet](https://leafletjs.com/) – Open-source JavaScript library for interactive maps
+- [OpenRouteService](https://openrouteservice.org/) – Routing and geospatial API services
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+<p align="center" style="margin-top: 5rem;">
+  <sub>Made by <a href="https://www.lukasolivier.be" target="_blank">Lukas Olivier</a></sub>
+</p>

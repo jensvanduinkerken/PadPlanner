@@ -1,0 +1,77 @@
+{
+  "Sidebar": {
+    "title": "Route Random",
+    "subtitle": "Een project gemaakt door",
+    "authorLink": "Lukas Olivier",
+    "aboutTitle": "Over Route Random",
+    "aboutDescription1": "Route Random is een gratis generator voor willekeurige routes die cirkelvormige routes maakt voor hardlopers, joggers en wandelaars. Genereer willekeurige routes op basis van uw gewenste afstand en startlocatie, waar dan ook ter wereld.",
+    "aboutDescription2": "Perfect om nieuwe paden te ontdekken, uw buurt te verkennen of nieuwe routes te vinden om uw trainingen spannend te houden.",
+    "language": "Taal"
+  },
+  "SidebarForm": {
+    "distanceMode": "Afstand",
+    "timeMode": "Tijd",
+    "desiredDistance": "Gewenste afstand (in km):",
+    "distancePlaceholder": "bijv. 5 of 7,5",
+    "desiredDuration": "Gewenste duur (in minuten):",
+    "timePlaceholder": "bijv. 30 of 45",
+    "pace": "Tempo:",
+    "walkingPace": "Wandeltempo (5 km/u)",
+    "runningPace": "Hardlooptempo (10 km/u)",
+    "cyclingPace": "Fietstempo (15 km/u)",
+    "startingLocation": "Start locatie",
+    "searchLocationPlaceholder": "Zoek startlocatie...",
+    "useCurrentLocation": "Gebruik huidige locatie",
+    "geolocationNotSupported": "Geolocatie wordt niet ondersteund door deze browser.",
+    "locationError": "Kan uw huidige locatie niet ophalen."
+  },
+  "Map": {
+    "startLocation": "Start locatie",
+    "routeGenerated": "Route gegenereerd!",
+    "distance": "Afstand"
+  },
+  "MapLoading": {
+    "loadingText": "Uw avontuur wordt geladen..."
+  },
+  "FullScreenButton": {
+    "enterFullscreen": "Volledig scherm",
+    "exitFullscreen": "Volledig scherm verlaten"
+  },
+  "DownloadButton": {
+    "downloadRoute": "Route downloaden als GPX",
+    "ariaLabel": "Route downloaden als GPX"
+  },
+  "ShareButton": {
+    "ariaLabel": "Route delen",
+    "shareRoute": "Route delen"
+  },
+  "TrackUserLocationButton": {
+    "stopTracking": "Stop locatie volgen",
+    "trackLocation": "Locatie volgen",
+    "trackYourLocation": "Locatie volgen",
+    "geolocationNotSupported": "Geolocatie wordt niet ondersteund door deze browser.",
+    "unableToGetLocation": "Kan uw locatie niet ophalen.",
+    "locationAccessDenied": "Locatietoegang geweigerd. Schakel locatiemachtigingen in.",
+    "locationUnavailable": "Locatie-informatie niet beschikbaar.",
+    "locationTimeout": "Locatieverzoek verlopen."
+  },
+  "Page": {
+    "toggleMenu": "Optiemenu tonen/verbergen",
+    "fullscreen": "Volledig scherm",
+    "exitFullscreen": "Volledig scherm verlaten"
+  },
+  "GenerateRouteButton": {
+    "generating": "Genereren...",
+    "generateRoute": "Route genereren"
+  },
+  "ResetRouteButton": {
+    "reset": "Resetten"
+  },
+  "AcceptRouteButton": {
+    "accept": "Accepteren"
+  },
+  "MapLoadingOverlay": {
+    "generatingRoute": "Uw route wordt gegenereerd...",
+    "pleaseWait": "Even geduld alstublieft..."
+  }
+}
