@@ -1,6 +1,5 @@
 import type { LatLng, RouteResult } from '../types/route';
-import { generateWaypoints, targetDistanceKm } from '../utils/waypointMath';
-import { fetchPOIs, selectWaypointsFromPOIs } from '../utils/poiFetcher';
+import { destinationPoint, targetDistanceKm } from '../utils/waypointMath';
 
 // Use wheelchair routing mode - it prioritizes pedestrian paths and avoids highways
 // Much better for walking routes than foot mode
@@ -14,26 +13,18 @@ export function useOSRM() {
     let bestResult: RouteResult | null = null;
     let bestDiffRatio = Infinity;
 
-    // Try to fetch interesting POIs first for more engaging routes
-    const pois = await fetchPOIs(origin, radiusKm * 1.5, 8);
-    const hasPOIs = pois.length >= 3;
-
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
-        // Use POIs if available, otherwise fall back to circular routing
-        let waypoints: LatLng[];
-        if (hasPOIs && attempt === 0) {
-          // First attempt: try POI-based routing
-          waypoints = selectWaypointsFromPOIs(pois, 6);
-        } else {
-          // Fallback: circular routing
-          waypoints = generateWaypoints(origin, radiusKm, 6);
-        }
+        // Out & Back Split: generate 1-2 waypoints at half distance
+        // This creates an out-and-back route where OSRM finds different paths
+        const halfRadiusKm = radiusKm / 2;
+        const waypoints: LatLng[] = [];
 
-        // If POI selection didn't work, use circular
-        if (waypoints.length === 0) {
-          waypoints = generateWaypoints(origin, radiusKm, 6);
-        }
+        // Add waypoint at ~90° (to the side) with slight variation per attempt
+        waypoints.push(destinationPoint(origin, halfRadiusKm, 90 + (attempt * 30)));
+
+        // Add second waypoint at ~270° for more natural out-and-back
+        waypoints.push(destinationPoint(origin, halfRadiusKm, 270 + (attempt * 30)));
 
         const allPoints = [origin, ...waypoints, origin];
 
