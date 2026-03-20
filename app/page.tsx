@@ -5,7 +5,7 @@ import { Menu } from "lucide-react";
 import { useTranslations } from "next-intl";
 import MapWrapper from "./components/MapWrapper";
 import Sidebar from "./components/Sidebar";
-import MobileBottomBar from "./components/MobileBottomBar";
+import MobileBottomSheet from "./components/MobileBottomSheet";
 import TrackUserLocationButton from "./components/TrackUserLocationButton";
 import DownloadButton from "./components/DownloadButton";
 import FloatingButton from "./components/FloatingButton";
@@ -38,9 +38,8 @@ export default function Home() {
 
   return (
     <main>
-      <div
-        className={`fixed right-4 z-[999999] flex flex-col items-end gap-2 pt-4`}
-      >
+      {/* Floating Buttons - Top Right */}
+      <div className="fixed top-4 right-4 z-[1001] lg:top-6 lg:right-6 flex flex-col items-end gap-2">
         {!isSidebarOpen && !isLoadingRoute && !isFullscreen && (
           <>
             <FloatingButton
@@ -48,7 +47,7 @@ export default function Home() {
               ariaLabel={t("toggleMenu")}
               hideOnDesktop={true}
               umamiEvent="Toggle menu"
-              umamiEventData={{ source: "floating-actions" }}
+              umamiEventData={{ source: "floating-actions"}}
             >
               <Menu size={24} />
             </FloatingButton>
@@ -91,13 +90,13 @@ export default function Home() {
       </div>
 
       {!isFullscreen && generatedRoute?.distance != null && (
-        <div className="fixed top-3 left-1/2 -translate-x-1/2 z-[1000] bg-white/90 backdrop-blur-sm text-gray-800 text-md font-semibold px-4 py-1.5 rounded-md shadow-md">
-          {tMap("distance")}: {(generatedRoute.distance / 1000).toFixed(2)} km
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[1000] bg-white/95 backdrop-blur-sm border border-amber-100 text-amber-900 text-sm font-semibold px-4 py-2 rounded-lg shadow-md">
+          📏 {(generatedRoute.distance / 1000).toFixed(2)} km
         </div>
       )}
 
-      {/* Mobile Bottom Bar */}
-      {!isFullscreen && <MobileBottomBar />}
+      {/* Mobile Bottom Sheet */}
+      {!isFullscreen && <MobileBottomSheet />}
     </main>
   );
 }
