@@ -68,7 +68,7 @@ export function MapView({ center, routeCoordinates, isLoading }: MapViewProps) {
       const latlngs = routeCoordinates.map((p) => [p.lat, p.lng] as [number, number]);
 
       polylineRef.current = L.polyline(latlngs, {
-        color: '#10b981',
+        color: '#3b82f6',
         weight: 4,
         opacity: 0.9,
         lineCap: 'round',
