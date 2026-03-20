@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useOSRM } from './hooks/useOSRM';
+import { useValhalla } from './hooks/useValhalla';
 import { MapView } from './components/MapView';
 import { RouteForm } from './components/RouteForm';
 import { RouteResult } from './components/RouteResult';
@@ -7,7 +7,7 @@ import type { RouteResult as RouteResultType, LatLng } from './types/route';
 import './App.css';
 
 function App() {
-  const { generateRoute } = useOSRM();
+  const { generateRoute } = useValhalla();
 
   const [startLocation, setStartLocation] = useState<LatLng | null>(null);
   const [desiredMinutes, setDesiredMinutes] = useState<number>(30);
