@@ -10,13 +10,14 @@ export function targetDistanceKm(minutes: number): number {
 export function generateWaypoints(
   origin: LatLng,
   radiusKm: number,
-  count: number = 4
+  count: number = 6
 ): LatLng[] {
   const waypoints: LatLng[] = [];
 
   for (let i = 0; i < count; i++) {
     const baseBearing = (360 / count) * i;
-    const jitter = Math.random() * 30 - 15; // ±15°
+    // Reduce jitter for more circular routes
+    const jitter = Math.random() * 12 - 6; // ±6° instead of ±15°
     const bearingDeg = baseBearing + jitter;
 
     const point = destinationPoint(origin, radiusKm, bearingDeg);

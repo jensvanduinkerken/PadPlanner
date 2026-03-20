@@ -13,7 +13,7 @@ export function useOSRM() {
 
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
-        const waypoints = generateWaypoints(origin, radiusKm, 4);
+        const waypoints = generateWaypoints(origin, radiusKm, 6);
         const allPoints = [origin, ...waypoints, origin];
 
         // Format for OSRM: lng,lat (note the order!)
