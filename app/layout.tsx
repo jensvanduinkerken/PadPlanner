@@ -173,6 +173,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Viewport for mobile */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+        {/* PWA Meta Tags */}
+        <meta name="theme-color" content="#c97d47" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="PadPlanner" />
+        <meta name="apple-mobile-web-app-status-bar" content="black-translucent" />
 
         {/* Robots meta tag for SEO */}
         <meta name="robots" content="index, follow" />
