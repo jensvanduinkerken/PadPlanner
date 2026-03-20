@@ -1,11 +1,21 @@
 @import "tailwindcss";
 
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #818cf8;
+  --accent: #ec4899;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
 .primary-bg {
-  @apply dark:bg-gray-800 bg-gray-50;
+  @apply dark:bg-slate-950 bg-slate-50;
 }
 
 .text-extra {
-  @apply dark:text-gray-400 text-gray-600;
+  @apply dark:text-slate-400 text-slate-600;
 }
 
 button {
@@ -13,12 +23,12 @@ button {
 }
 
 label {
-  @apply block mb-1 text-sm font-medium dark:text-gray-300 text-gray-800;
+  @apply block mb-1 text-sm font-medium dark:text-slate-300 text-slate-800;
 }
 
 input:is([type="number"]),
 input:is([type="text"]) {
-  @apply p-2 border dark:border-gray-700 rounded dark:bg-gray-800 w-full  bg-gray-200 border-gray-400 dark:text-white text-black;
+  @apply p-2 border dark:border-slate-700 rounded dark:bg-slate-900 w-full bg-slate-100 border-slate-300 dark:text-white text-black transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500;
 }
 
 button:disabled {
@@ -27,7 +37,7 @@ button:disabled {
 
 input:disabled,
 select:disabled {
-  @apply cursor-not-allowed opacity-50 dark:bg-gray-600 bg-gray-200;
+  @apply cursor-not-allowed opacity-50 dark:bg-slate-800 bg-slate-200;
 }
 
 input[type="range"]:disabled {
@@ -80,12 +90,12 @@ input[type="range"]:disabled {
 }
 
 .user-location-dot {
-  width: 16;
+  width: 16px;
   height: 16px;
-  background-color: #22c55e;
+  background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
   border: 3px solid white;
   border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
   z-index: 2;
 }
 
@@ -93,8 +103,13 @@ input[type="range"]:disabled {
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: #22c55e;
+  background-color: #6366f1;
   border-radius: 50%;
   animation: pulse-location 2s ease-out infinite;
   z-index: 1;
+}
+
+/* Smooth transitions */
+* {
+  @apply transition-colors duration-200;
 }
