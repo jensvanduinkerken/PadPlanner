@@ -196,12 +196,12 @@ export default function SidebarForm() {
             </div>
           </div>
         )}
+      </div>
       </section>
 
       {/* Location Card */}
       <section className="card p-4 space-y-3">
         <h2 className="section-title text-base">📍 {t("startingLocation")}</h2>
-        <div>
           <div className="flex gap-1">
             <div className="flex-1">
               <LocationSearch
@@ -230,7 +230,6 @@ export default function SidebarForm() {
               )}
             </button>
           </div>
-        </div>
       </section>
 
       {/* Action Buttons - Desktop only */}
@@ -257,7 +256,6 @@ export default function SidebarForm() {
               className="w-full"
             />
           )}
-      </div>
       </div>
     </form>
   );
