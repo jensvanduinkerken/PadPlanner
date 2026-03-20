@@ -64,10 +64,10 @@ export function useValhalla() {
     let bestResult: RouteResult | null = null;
     let bestDiffRatio = Infinity;
 
-    // Terrain-aware: fetch walkable paths once before retry loop (8 waypoints for rounder routes)
+    // Terrain-aware: fetch walkable paths once before retry loop (3 waypoints for out-and-back)
     let terrainWaypoints: LatLng[] | null = null;
     try {
-      terrainWaypoints = await fetchTerrainWaypoints(origin, radiusKm, 8);
+      terrainWaypoints = await fetchTerrainWaypoints(origin, radiusKm, 3);
     } catch (err) {
       console.warn('Terrain fetch failed, using circular fallback:', err);
     }
@@ -81,9 +81,9 @@ export function useValhalla() {
         if (terrainWaypoints) {
           waypoints = terrainWaypoints;
         } else {
-          // Fallback: circular waypoints at ~half distance (8 waypoints for rounder routes)
+          // Fallback: circular waypoints at ~half distance (3 waypoints for out-and-back, no backtracking)
           const halfRadiusKm = radiusKm / 2;
-          waypoints = generateWaypoints(origin, halfRadiusKm, 8);
+          waypoints = generateWaypoints(origin, halfRadiusKm, 3);
         }
 
         // Build Valhalla locations array: origin -> waypoints -> origin
