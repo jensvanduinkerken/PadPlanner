@@ -1,5 +1,6 @@
 import type { LatLng, RouteResult } from '../types/route';
 import { generateWaypoints, targetDistanceKm } from '../utils/waypointMath';
+import { fetchTerrainWaypoints } from '../utils/terrainFetcher';
 
 // Use wheelchair routing mode - it prioritizes pedestrian paths and avoids highways
 // Much better for walking routes than foot mode
@@ -13,12 +14,25 @@ export function useOSRM() {
     let bestResult: RouteResult | null = null;
     let bestDiffRatio = Infinity;
 
+    // Terrain-aware: fetch walkable paths once before retry loop
+    let terrainWaypoints: LatLng[] | null = null;
+    try {
+      terrainWaypoints = await fetchTerrainWaypoints(origin, radiusKm);
+    } catch (err) {
+      console.warn('Terrain fetch failed, using circular fallback:', err);
+    }
+
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
-        // Out & Back Split: generate circular waypoints at ~half distance
-        // OSRM finds naturally divergent paths outbound and return
-        const halfRadiusKm = radiusKm / 2;
-        const waypoints = generateWaypoints(origin, halfRadiusKm, 6);
+        // Use terrain waypoints if available, otherwise circular waypoints
+        let waypoints: LatLng[];
+        if (terrainWaypoints) {
+          waypoints = terrainWaypoints;
+        } else {
+          // Fallback: Out & Back Split with circular waypoints at ~half distance
+          const halfRadiusKm = radiusKm / 2;
+          waypoints = generateWaypoints(origin, halfRadiusKm, 6);
+        }
 
         const allPoints = [origin, ...waypoints, origin];
 
