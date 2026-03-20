@@ -32,7 +32,7 @@ export default function FloatingButton({
   const variantClasses = {
     default:
       "dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 bg-white text-black hover:bg-gray-200",
-    active: "bg-blue-600 text-white hover:bg-blue-700",
+    active: "bg-amber-700 text-white hover:bg-amber-800",
   };
 
   const responsiveClasses = hideOnDesktop

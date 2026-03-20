@@ -85,7 +85,6 @@ export default function SidebarForm() {
     <option
       key={pace.value}
       value={pace.value}
-      className="dark:bg-gray-800 dark:text-gray-200 p-2 bg-gray-300 text-gray-800"
     >
       {pace.label}
     </option>
@@ -147,7 +146,6 @@ export default function SidebarForm() {
                   setDistance(e.target.value);
                 }}
                 placeholder={t("distancePlaceholder")}
-                className="w-full bg-gray-800 rounded-md pl-10 pr-3 py-2 border border-gray-700"
                 required
               />
             </div>
@@ -182,7 +180,7 @@ export default function SidebarForm() {
                 {t("pace")}
               </label>
               <select
-                className="w-full dark:bg-gray-800 rounded-md px-3 py-2 border dark:border-gray-700 border-gray-400 bg-gray-200 dark:text-white"
+                className="w-full p-2 border rounded bg-white border-amber-200 text-amber-900"
                 disabled={!!generatedRoute}
                 onChange={(e) => {
                   setPace(e.target.value as Pace);
@@ -197,7 +195,7 @@ export default function SidebarForm() {
           </div>
         )}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-amber-900 mb-2">
             {t("startingLocation")}
           </label>
           <div className="flex gap-1">
@@ -214,7 +212,7 @@ export default function SidebarForm() {
               aria-label={t("useCurrentLocation")}
               onClick={getCurrentLocation}
               disabled={isGettingLocation || locationError || !!generatedRoute}
-              className="px-3 py-2 dark:bg-gray-800 dark:hover:bg-gray-700 border dark:border-gray-700 rounded-md dark:text-white flex items-center bg-gray-200 hover:bg-gray-300 transition-colors border-gray-400"
+              className="px-3 py-2 bg-white hover:bg-amber-50 border border-amber-200 rounded-md text-amber-900 flex items-center transition-colors"
               data-umami-event="Use current location"
               data-umami-event-source="sidebar"
             >

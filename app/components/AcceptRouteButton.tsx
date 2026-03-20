@@ -32,7 +32,7 @@ export default function AcceptRouteButton({
       type="button"
       onClick={onAccept}
       disabled={disabled}
-      className={`bg-green-600 hover:bg-green-800 disabled:bg-green-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-md transition-colors flex justify-center items-center ${className}`}
+      className={`bg-amber-700 hover:bg-amber-800 disabled:bg-amber-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-md transition-colors flex justify-center items-center ${className}`}
       data-umami-event={umamiEventName}
       {...umamiDataAttributes}
     >

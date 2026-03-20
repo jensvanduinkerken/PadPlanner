@@ -98,7 +98,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
       {/* Header */}
       <header>
         <div className="flex items-base lg:justify-between gap-2 mb-1 flex-wrap">
-          <h1 className="text-2xl font-bold flex items-center gap-2 dark:text-white text-black">
+          <h1 className="text-2xl font-bold flex items-center gap-2 text-amber-900">
             <Footprints size={24} />
             {t("title")}
           </h1>
@@ -107,7 +107,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
           <select
             value={locale}
             onChange={(e) => handleLanguageChange(e.target.value)}
-            className="text-xs w-full xl:w-fit px-2 py-1 dark:bg-gray-800 rounded border dark:border-gray-700 border-gray-400 bg-gray-200 dark:text-white text-gray-800"
+            className="text-xs w-full xl:w-fit px-2 py-1 rounded border bg-white border-amber-200 text-amber-900"
             title={t("language")}
           >
             <option value="en">EN</option>
@@ -128,14 +128,14 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
       </header>
 
       {/* Separator element */}
-      <div className="border-t border-gray-700 my-4" />
+      <div className="border-t border-amber-200 my-4" />
 
       {/* Form for adjusting route generation settings */}
       <SidebarForm />
 
       {/* Footer */}
       <footer className="mt-auto text-xs text-extra leading-relaxed space-y-4">
-        <h3 className="text-sm font-medium dark:text-gray-300 mb-2 text-gray-800">
+        <h3 className="text-sm font-medium text-amber-900 mb-2">
           {t("aboutTitle")}
         </h3>
         <p>{t("aboutDescription1")}</p>

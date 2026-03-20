@@ -44,7 +44,7 @@ export default function FloatingActionButtons({
             <button
               type="button"
               onClick={handleAcceptRoute}
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg shadow-lg transition-colors flex justify-center items-center"
+              className="flex-1 bg-amber-700 hover:bg-amber-800 text-white font-semibold py-3 px-4 rounded-lg shadow-lg transition-colors flex justify-center items-center"
               data-umami-event="Accept route"
               data-umami-event-source="floating-action-buttons"
             >
@@ -55,7 +55,7 @@ export default function FloatingActionButtons({
           <button
             type="button"
             onClick={handleResetRoute}
-            className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg shadow-lg transition-colors flex justify-center items-center"
+            className="flex-1 bg-amber-800 hover:bg-amber-900 text-white font-semibold py-3 px-4 rounded-lg shadow-lg transition-colors flex justify-center items-center"
             data-umami-event="Reset route"
             data-umami-event-source="floating-action-buttons"
           >
@@ -68,7 +68,7 @@ export default function FloatingActionButtons({
           type="button"
           onClick={onGenerateRoute}
           disabled={isGeneratingRoute || !canGenerate}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg shadow-lg transition-colors flex justify-center items-center"
+          className="w-full bg-amber-700 hover:bg-amber-800 disabled:bg-amber-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg shadow-lg transition-colors flex justify-center items-center"
           data-umami-event="Generate route"
           data-umami-event-source="floating-action-buttons"
         >

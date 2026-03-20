@@ -32,7 +32,7 @@ export default function ResetRouteButton({
       type="button"
       onClick={onReset}
       disabled={disabled}
-      className={`bg-gray-500 hover:bg-gray-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-md transition-colors flex justify-center items-center ${className}`}
+      className={`bg-amber-800 hover:bg-amber-900 disabled:bg-amber-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-md transition-colors flex justify-center items-center ${className}`}
       data-umami-event={umamiEventName}
       {...umamiDataAttributes}
     >

@@ -100,7 +100,7 @@ export default function LocationSearch({
     <div className="relative">
       <div className="relative">
         <Search
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-amber-400"
           size={16}
         />
         <input
@@ -112,10 +112,10 @@ export default function LocationSearch({
           onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
           placeholder={placeholder}
           disabled={disabled}
-          className={`w-full pl-10 pr-4 py-2 border rounded-md text-white placeholder-gray-400 ${
+          className={`w-full pl-10 pr-4 py-2 border rounded-md ${
             disabled
-              ? "bg-gray-600 border-gray-500 cursor-not-allowed opacity-50"
-              : "bg-gray-800 border-gray-600"
+              ? "bg-amber-100 border-amber-200 text-amber-900 cursor-not-allowed opacity-50"
+              : "bg-white border-amber-200 text-amber-900 placeholder-amber-400"
           }`}
         />
         {isLoading && (
@@ -128,7 +128,7 @@ export default function LocationSearch({
       {showSuggestions && suggestions.length > 0 && !disabled && (
         <div
           ref={suggestionsRef}
-          className="absolute z-10 w-full mt-1 bg-gray-800 border border-gray-600 rounded-md shadow-lg max-h-60 overflow-y-auto"
+          className="absolute z-10 w-full mt-1 bg-white border border-amber-200 rounded-md shadow-lg max-h-60 overflow-y-auto"
         >
           {suggestions.map((location, index) => (
             <div
@@ -136,11 +136,11 @@ export default function LocationSearch({
               onClick={() => handleLocationSelect(location)}
               className={`px-4 py-2 cursor-pointer flex items-center gap-2 ${
                 index === selectedIndex
-                  ? "bg-gray-700 text-white"
-                  : "text-gray-300 hover:bg-gray-700"
+                  ? "bg-amber-100 text-amber-900"
+                  : "text-amber-900 hover:bg-amber-50"
               }`}
             >
-              <MapPin size={14} className="text-gray-400 flex-shrink-0" />
+              <MapPin size={14} className="text-amber-400 flex-shrink-0" />
               <span className="text-sm truncate">{location.display_name}</span>
             </div>
           ))}

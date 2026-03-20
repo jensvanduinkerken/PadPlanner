@@ -12,7 +12,7 @@ export const blueIcon = new L.Icon({
     "data:image/svg+xml;base64," +
     btoa(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32">
-        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#4285F4"/>
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#c97d47"/>
         <circle cx="12" cy="9" r="3" fill="white"/>
       </svg>
     `),
@@ -39,9 +39,9 @@ export const waypointIcon = new L.Icon({
     "data:image/svg+xml;base64," +
     btoa(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        <circle cx="12" cy="12" r="8" fill="#ff6b35" stroke="white" stroke-width="2"/>
+        <circle cx="12" cy="12" r="8" fill="#c97d47" stroke="white" stroke-width="2"/>
         <circle cx="12" cy="12" r="3" fill="white"/>
-        <path d="M8 8l8 8M16 8l-8 8" stroke="#ff6b35" stroke-width="1" opacity="0.5"/>
+        <path d="M8 8l8 8M16 8l-8 8" stroke="#c97d47" stroke-width="1" opacity="0.5"/>
       </svg>
     `),
   iconSize: [24, 24],
@@ -102,7 +102,7 @@ export const createNumberedWaypointIcon = (number: number) =>
       "data:image/svg+xml;base64," +
       btoa(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-        <circle cx="16" cy="16" r="12" fill="#ff6b35" stroke="white" stroke-width="2"/>
+        <circle cx="16" cy="16" r="12" fill="#c97d47" stroke="white" stroke-width="2"/>
         <text x="16" y="20" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">${number}</text>
       </svg>
     `),
