@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 interface MapViewProps {
   center?: LatLng | null;
   routeCoordinates?: LatLng[] | null;
+  waypoints?: LatLng[] | null;
   isLoading?: boolean;
 }
 
@@ -22,11 +23,12 @@ const defaultIcon = L.icon({
 
 L.Marker.prototype.setIcon(defaultIcon);
 
-export function MapView({ center, routeCoordinates, isLoading }: MapViewProps) {
+export function MapView({ center, routeCoordinates, waypoints, isLoading }: MapViewProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null);
   const markerRef = useRef<L.Marker | null>(null);
   const polylineRef = useRef<L.Polyline | null>(null);
+  const waypointMarkersRef = useRef<L.Marker[]>([]);
 
   // Initialize map once
   useEffect(() => {
@@ -80,6 +82,30 @@ export function MapView({ center, routeCoordinates, isLoading }: MapViewProps) {
       mapInstance.current.fitBounds(bounds, { padding: [50, 50] });
     }
   }, [routeCoordinates]);
+
+  // Update waypoint markers
+  useEffect(() => {
+    if (!mapInstance.current) return;
+
+    // Clear old waypoint markers
+    waypointMarkersRef.current.forEach((marker) => marker.remove());
+    waypointMarkersRef.current = [];
+
+    if (waypoints && waypoints.length > 0) {
+      waypoints.forEach((waypoint, index) => {
+        const numberedIcon = L.divIcon({
+          className: '',
+          html: `<div style="background:#3b82f6;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.4);">${index + 1}</div>`,
+          iconSize: [28, 28],
+          iconAnchor: [14, 14],
+        });
+
+        const marker = L.marker([waypoint.lat, waypoint.lng], { icon: numberedIcon })
+          .addTo(mapInstance.current!);
+        waypointMarkersRef.current.push(marker);
+      });
+    }
+  }, [waypoints]);
 
   return (
     <div className="relative w-full h-full">

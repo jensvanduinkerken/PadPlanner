@@ -10,6 +10,7 @@ export interface RouteRequest {
 
 export interface RouteResult {
   coordinates: LatLng[];
+  waypoints: LatLng[];
   actualDistanceMeters: number;
   actualDurationSeconds: number;
 }

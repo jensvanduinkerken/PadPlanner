@@ -91,6 +91,7 @@ function App() {
           <MapView
             center={startLocation}
             routeCoordinates={routeResult?.coordinates ?? null}
+            waypoints={routeResult?.waypoints ?? null}
             isLoading={status === 'loading'}
           />
         </div>
