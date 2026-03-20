@@ -120,7 +120,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
           <a
             className="underline"
             target="_blank"
-            href="https://www.lukasolivier.be"
+            href="https://jens.vanduinkerken.net"
           >
             {t("authorLink")}
           </a>

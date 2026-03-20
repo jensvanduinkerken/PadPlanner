@@ -9,7 +9,7 @@ async function notifyDiscord(id: string, distance: number) {
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
   if (!webhookUrl) return;
 
-  const routeUrl = `${process.env.NEXT_PUBLIC_BASE_URL ?? "https://route-random.lukasolivier.be"}/?route=${id}`;
+  const routeUrl = `${process.env.NEXT_PUBLIC_BASE_URL ?? "https://jens.vanduinkerken.net"}/?route=${id}`;
 
   try {
     await fetch(webhookUrl, {

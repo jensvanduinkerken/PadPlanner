@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "Route Random is a free route generator that creates random routes for. Generate random routes based on your desired distance or time and start exploring!";
-const ogTitle = "Route Random - Free Random Route Generator";
-const image = "https://route-random.lukasolivier.be/og-image.png";
-const mySite = "https://route-random.lukasolivier.be";
+  "PadPlanner is a free route generator that creates random walking routes. Generate random routes based on your desired distance or time and start exploring!";
+const ogTitle = "PadPlanner - Free Random Route Generator";
+const image = "https://jens.vanduinkerken.net/og-image.png";
+const mySite = "https://jens.vanduinkerken.net";
 
 export const metadata: Metadata = {
   title: ogTitle,
@@ -45,8 +45,8 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    site: "@route-random",
-    creator: "@route-random",
+    site: "@padplanner",
+    creator: "@jensvanduinkerken",
     card: "summary_large_image",
     title: ogTitle,
     description: description,
@@ -87,7 +87,7 @@ const webpageSchema = {
   isPartOf: {
     "@type": "WebSite",
     url: mySite,
-    name: "Route Random",
+    name: "PadPlanner",
   },
   primaryImageOfPage: {
     "@type": "ImageObject",
@@ -98,8 +98,8 @@ const webpageSchema = {
   },
   author: {
     "@type": "Person",
-    name: "Lukas Olivier",
-    url: "https://lukasolivier.be",
+    name: "Jens van Duinkerken",
+    url: "https://jens.vanduinkerken.net",
   },
   potentialAction: {
     "@type": "ReadAction",
@@ -130,8 +130,8 @@ const imageObjectSchema = {
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Lukas Olivier",
-  url: "https://www.lukasolivier.be",
+  name: "Jens van Duinkerken",
+  url: "https://jens.vanduinkerken.net",
 };
 
 const readActionSchema = {
@@ -173,12 +173,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Umami analytics script */}
-        <script
-          defer
-          src="https://umami.lukasolivier.be/script.js"
-          data-website-id="a0e3a80f-8804-4070-a7b5-46b223dfa8dc"
-        ></script>
 
         {/* Robots meta tag for SEO */}
         <meta name="robots" content="index, follow" />
@@ -186,17 +180,17 @@ export default async function RootLayout({
         {/* Hreflang alternate links for English and Dutch */}
         <link
           rel="alternate"
-          href="https://route-random.lukasolivier.be/"
+          href="https://jens.vanduinkerken.net/"
           hrefLang="en"
         />
         <link
           rel="alternate"
-          href="https://route-random.lukasolivier.be/nl"
+          href="https://jens.vanduinkerken.net/nl"
           hrefLang="nl"
         />
         <link
           rel="alternate"
-          href="https://route-random.lukasolivier.be/"
+          href="https://jens.vanduinkerken.net/"
           hrefLang="x-default"
         />
         <link rel="manifest" href="/manifest.json" />
