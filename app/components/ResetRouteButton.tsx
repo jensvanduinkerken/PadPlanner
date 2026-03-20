@@ -32,11 +32,11 @@ export default function ResetRouteButton({
       type="button"
       onClick={onReset}
       disabled={disabled}
-      className={`bg-amber-800 hover:bg-amber-900 disabled:bg-amber-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-md transition-colors flex justify-center items-center ${className}`}
+      className={`bg-amber-800 hover:bg-amber-900 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-xl transition-all active:scale-95 flex justify-center items-center ${className}`}
       data-umami-event={umamiEventName}
       {...umamiDataAttributes}
     >
-      <RotateCcw className="inline-block mr-2" size={16} />
+      <RotateCcw className="inline-block mr-2" size={18} />
       {t("reset")}
     </button>
   );

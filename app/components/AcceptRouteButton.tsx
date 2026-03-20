@@ -32,11 +32,11 @@ export default function AcceptRouteButton({
       type="button"
       onClick={onAccept}
       disabled={disabled}
-      className={`bg-amber-700 hover:bg-amber-800 disabled:bg-amber-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-md transition-colors flex justify-center items-center ${className}`}
+      className={`btn-primary flex justify-center items-center ${className}`}
       data-umami-event={umamiEventName}
       {...umamiDataAttributes}
     >
-      <Check className="inline-block mr-2" size={16} />
+      <Check className="inline-block mr-2" size={18} />
       {t("accept")}
     </button>
   );
