@@ -56,82 +56,89 @@ export function RouteForm({
   }
 
   const estimatedKm = ((selectedMinutes / 60) * 5).toFixed(1);
+  const hours = Math.floor(selectedMinutes / 60);
+  const mins = selectedMinutes % 60;
+  const durationDisplay = hours > 0 ? `${hours}h ${mins}m` : `${mins} min`;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Location Input */}
       <div className="relative">
-        <label className="block text-sm font-medium text-slate-700 mb-2">
+        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
           Starting Point
         </label>
         <div className="relative">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
           <input
             ref={inputRef}
             type="text"
             value={inputValue}
             onFocus={() => setIsFocused(true)}
             onChange={(e) => handleSearch(e.target.value)}
-            placeholder="Enter a location (e.g., Amsterdam)"
-            className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-slate-900 placeholder-slate-400"
+            placeholder="Search for a location..."
+            className="w-full pl-10 pr-10 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all text-sm"
           />
           {selectedLocation && (
-            <div className="absolute right-3 top-3 text-green-500">✓</div>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center">
+              <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
           )}
         </div>
 
         {/* Suggestions Dropdown */}
         {isFocused && suggestions.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-lg shadow-lg z-10 overflow-hidden">
+          <div className="absolute top-full left-0 right-0 mt-1 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl shadow-black/40 z-50 overflow-hidden">
             {suggestions.map((suggestion, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSelectSuggestion(suggestion)}
-                className="w-full text-left px-4 py-3 hover:bg-blue-50 border-b border-slate-100 last:border-b-0 text-sm text-slate-900 transition-colors"
+                className="w-full text-left px-4 py-3 hover:bg-slate-700 border-b border-slate-700/50 last:border-b-0 text-sm text-slate-200 transition-colors flex items-center gap-3"
               >
-                <div className="font-medium">{suggestion.name}</div>
+                <svg className="w-4 h-4 text-slate-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span className="truncate">{suggestion.name}</span>
               </button>
             ))}
           </div>
         )}
       </div>
 
-      {/* Duration Input */}
-      <div className="space-y-4">
-        <div className="flex items-end justify-between">
-          <label className="block text-sm font-medium text-slate-700">
-            Walking Duration
-          </label>
-          <span className="text-2xl font-bold text-blue-600">{selectedMinutes}</span>
+      {/* Duration Section */}
+      <div>
+        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">
+          Duration
+        </label>
+
+        {/* Big duration display */}
+        <div className="text-center mb-5">
+          <span className="text-5xl font-bold text-white tabular-nums">{durationDisplay}</span>
+          <p className="text-sm text-slate-500 mt-1">~{estimatedKm} km walk</p>
         </div>
 
-        <div className="space-y-3">
-          <input
-            type="range"
-            min="10"
-            max="180"
-            step="5"
-            value={selectedMinutes}
-            onChange={(e) => onDurationChange(Number(e.target.value))}
-            className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-          />
+        {/* Slider */}
+        <input
+          type="range"
+          min="10"
+          max="180"
+          step="5"
+          value={selectedMinutes}
+          onChange={(e) => onDurationChange(Number(e.target.value))}
+          className="w-full"
+        />
 
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span>10 min</span>
-            <span>90 min</span>
-            <span>180 min</span>
-          </div>
-        </div>
-
-        {/* Stats Card */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-slate-600">Estimated Distance</span>
-            <span className="font-semibold text-slate-900">{estimatedKm} km</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-slate-600">Pace</span>
-            <span className="font-semibold text-slate-900">~5 km/h</span>
-          </div>
+        <div className="flex justify-between text-[10px] text-slate-600 mt-2">
+          <span>10 min</span>
+          <span>1 hour</span>
+          <span>2 hours</span>
+          <span>3 hours</span>
         </div>
       </div>
 
@@ -139,24 +146,29 @@ export function RouteForm({
       <button
         onClick={onGenerate}
         disabled={!selectedLocation || isLoading}
-        className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-all duration-200 flex items-center justify-center gap-2 ${
+        className={`w-full py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-2.5 ${
           !selectedLocation || isLoading
-            ? 'bg-slate-300 cursor-not-allowed'
-            : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-95 shadow-lg hover:shadow-xl'
+            ? 'bg-slate-800 text-slate-600 cursor-not-allowed border border-slate-700'
+            : 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-400 hover:to-teal-400 active:scale-[0.98] shadow-lg shadow-emerald-500/25'
         }`}
       >
         {isLoading ? (
-          <>
-            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-            <span>Generating Route...</span>
-          </>
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1">
+              <div className="loading-dot w-1.5 h-1.5 bg-white rounded-full" />
+              <div className="loading-dot w-1.5 h-1.5 bg-white rounded-full" />
+              <div className="loading-dot w-1.5 h-1.5 bg-white rounded-full" />
+            </div>
+            <span>Finding your route</span>
+          </div>
         ) : (
-          <>
-            <span>📍</span>
-            <span>Generate Route</span>
-          </>
+          <span>Generate Route</span>
         )}
       </button>
+
+      {!selectedLocation && (
+        <p className="text-xs text-slate-600 text-center">Search and select a location to get started</p>
+      )}
     </div>
   );
 }

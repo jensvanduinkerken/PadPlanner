@@ -35,44 +35,39 @@ function App() {
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="w-screen h-screen flex flex-col overflow-hidden bg-slate-900">
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
-              <span className="text-white font-bold text-lg">🚶</span>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-slate-900">PadPlanner</h1>
-              <p className="text-xs text-slate-500">Plan your perfect walk</p>
-            </div>
+      <header className="h-16 shrink-0 bg-slate-900 border-b border-slate-700/50 flex items-center px-6 z-10">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+          </div>
+          <div>
+            <h1 className="text-lg font-bold text-white leading-tight tracking-tight">PadPlanner</h1>
+            <p className="text-[11px] text-slate-400 leading-tight">Circular walking routes</p>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col lg:flex-row gap-0 overflow-hidden">
-        {/* Left Panel - Controls */}
-        <div className="w-full lg:w-96 overflow-y-auto bg-white border-r border-slate-200 flex flex-col">
-          <div className="flex-1 p-6 space-y-6">
-            {/* Form Section */}
-            <div className="space-y-4">
-              <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">Plan Your Walk</h2>
-              <RouteForm
-                onLocationSelected={setStartLocation}
-                onDurationChange={setDesiredMinutes}
-                onGenerate={handleGenerate}
-                isLoading={status === 'loading'}
-                selectedMinutes={desiredMinutes}
-                selectedLocation={startLocation}
-              />
-            </div>
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
+        {/* Sidebar */}
+        <div className="w-full lg:w-[380px] shrink-0 overflow-y-auto bg-slate-900 border-r border-slate-700/50">
+          <div className="p-5 space-y-5">
+            <RouteForm
+              onLocationSelected={setStartLocation}
+              onDurationChange={setDesiredMinutes}
+              onGenerate={handleGenerate}
+              isLoading={status === 'loading'}
+              selectedMinutes={desiredMinutes}
+              selectedLocation={startLocation}
+            />
 
-            {/* Result Section */}
-            {(routeResult || status === 'loading') && (
-              <div className="space-y-4 pt-6 border-t border-slate-200">
-                <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">Route Details</h2>
+            {routeResult && (
+              <div className="panel-enter">
                 <RouteResult
                   result={routeResult}
                   desiredMinutes={desiredMinutes}
@@ -82,23 +77,17 @@ function App() {
               </div>
             )}
 
-            {/* Error Section */}
             {errorMessage && (
-              <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
-                <div className="flex gap-3">
-                  <span className="text-xl">⚠️</span>
-                  <div>
-                    <p className="font-medium text-red-900 text-sm">Something went wrong</p>
-                    <p className="text-red-700 text-xs mt-1">{errorMessage}</p>
-                  </div>
-                </div>
+              <div className="panel-enter bg-red-500/10 border border-red-500/30 rounded-xl p-4">
+                <p className="text-sm text-red-400 font-medium">Route generation failed</p>
+                <p className="text-xs text-red-400/70 mt-1">{errorMessage}</p>
               </div>
             )}
           </div>
         </div>
 
-        {/* Right Panel - Map */}
-        <div className="flex-1 min-h-96 lg:min-h-0 relative overflow-hidden bg-slate-100">
+        {/* Map */}
+        <div className="flex-1 min-h-[300px] lg:min-h-0 relative">
           <MapView
             center={startLocation}
             routeCoordinates={routeResult?.coordinates ?? null}

@@ -19,78 +19,58 @@ export function RouteResult({ result, desiredMinutes, onRegenerate, isLoading }:
 
   return (
     <div className="space-y-4">
-      {/* Main Stats Card */}
-      <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-slate-600 mb-1">Total Distance</p>
-            <p className="text-3xl font-bold text-slate-900">{distanceKm} km</p>
-          </div>
-          <div className="text-4xl">📍</div>
-        </div>
-
-        <div className="h-px bg-green-200" />
-
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white rounded-lg p-3">
-            <p className="text-xs text-slate-600 mb-1">Estimated Time</p>
-            <p className="text-xl font-bold text-slate-900">~{actualMinutes}</p>
-            <p className="text-xs text-slate-500">minutes</p>
-          </div>
-
-          <div className="bg-white rounded-lg p-3">
-            <p className="text-xs text-slate-600 mb-1">Your Request</p>
-            <p className="text-xl font-bold text-slate-900">{desiredMinutes}</p>
-            <p className="text-xs text-slate-500">minutes</p>
-          </div>
-        </div>
-
-        {/* Accuracy Badge */}
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-green-500" />
-          <p className="text-xs font-medium text-slate-600">
-            {isAccurate
-              ? '✓ Perfect match'
-              : `Difference: ${diffPercent.toFixed(0)}%`}
-          </p>
-        </div>
-      </div>
-
-      {/* Warning if not accurate */}
-      {!isAccurate && (
-        <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-lg">
-          <p className="text-sm text-amber-900">
-            <span className="font-semibold">Heads up:</span> This is the closest route we could find. The actual time differs slightly from your request.
-          </p>
-        </div>
-      )}
-
-      {/* Action Buttons */}
+      {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-3">
-        <button
-          onClick={onRegenerate}
-          disabled={isLoading}
-          className={`py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
-            isLoading
-              ? 'bg-slate-200 text-slate-500 cursor-not-allowed'
-              : 'bg-slate-100 text-slate-900 hover:bg-slate-200 active:scale-95'
-          }`}
-        >
-          <span>🔄</span>
-          {isLoading ? 'Generating...' : 'Regenerate'}
-        </button>
-
-        <button
-          onClick={() => {
-            // Could add share functionality later
-            alert('Share feature coming soon!');
-          }}
-          className="py-3 px-4 rounded-lg font-semibold text-sm bg-blue-100 text-blue-900 hover:bg-blue-200 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2"
-        >
-          <span>↗️</span>
-          Share
-        </button>
+        <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+          <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Distance</p>
+          <p className="text-2xl font-bold text-white mt-1">{distanceKm}<span className="text-sm text-slate-400 ml-1">km</span></p>
+        </div>
+        <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+          <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Duration</p>
+          <p className="text-2xl font-bold text-white mt-1">~{actualMinutes}<span className="text-sm text-slate-400 ml-1">min</span></p>
+        </div>
       </div>
+
+      {/* Accuracy indicator */}
+      <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium ${
+        isAccurate
+          ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
+          : 'bg-amber-500/10 border border-amber-500/20 text-amber-400'
+      }`}>
+        <div className={`w-1.5 h-1.5 rounded-full ${isAccurate ? 'bg-emerald-400' : 'bg-amber-400'}`} />
+        {isAccurate
+          ? 'Route matches your requested duration'
+          : `Closest route found (${diffPercent.toFixed(0)}% difference)`}
+      </div>
+
+      {/* Regenerate Button */}
+      <button
+        onClick={onRegenerate}
+        disabled={isLoading}
+        className={`w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
+          isLoading
+            ? 'bg-slate-800 text-slate-600 cursor-not-allowed border border-slate-700'
+            : 'bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-750 hover:border-slate-600 hover:text-white active:scale-[0.98]'
+        }`}
+      >
+        {isLoading ? (
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1">
+              <div className="loading-dot w-1.5 h-1.5 bg-slate-400 rounded-full" />
+              <div className="loading-dot w-1.5 h-1.5 bg-slate-400 rounded-full" />
+              <div className="loading-dot w-1.5 h-1.5 bg-slate-400 rounded-full" />
+            </div>
+            <span>Regenerating...</span>
+          </div>
+        ) : (
+          <>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span>Try a different route</span>
+          </>
+        )}
+      </button>
     </div>
   );
 }

@@ -68,9 +68,11 @@ export function MapView({ center, routeCoordinates, isLoading }: MapViewProps) {
       const latlngs = routeCoordinates.map((p) => [p.lat, p.lng] as [number, number]);
 
       polylineRef.current = L.polyline(latlngs, {
-        color: '#2563EB',
-        weight: 5,
-        opacity: 0.8,
+        color: '#10b981',
+        weight: 4,
+        opacity: 0.9,
+        lineCap: 'round',
+        lineJoin: 'round',
       }).addTo(mapInstance.current);
 
       // Fit map to route bounds
@@ -83,10 +85,14 @@ export function MapView({ center, routeCoordinates, isLoading }: MapViewProps) {
     <div className="relative w-full h-full">
       <div ref={mapRef} className="w-full h-full" aria-label="Walking route map" />
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20">
-          <div className="bg-white rounded-lg p-6 shadow-lg">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2" />
-            <p className="text-gray-700 text-sm">Generating route...</p>
+        <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-[2px] z-10">
+          <div className="bg-slate-900/90 backdrop-blur-sm rounded-2xl px-8 py-6 shadow-2xl border border-slate-700/50 flex flex-col items-center gap-3">
+            <div className="flex gap-1.5">
+              <div className="loading-dot w-2.5 h-2.5 bg-emerald-400 rounded-full" />
+              <div className="loading-dot w-2.5 h-2.5 bg-emerald-400 rounded-full" />
+              <div className="loading-dot w-2.5 h-2.5 bg-emerald-400 rounded-full" />
+            </div>
+            <p className="text-slate-300 text-sm font-medium">Finding your route...</p>
           </div>
         </div>
       )}
