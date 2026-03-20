@@ -16,8 +16,8 @@ export function generateWaypoints(
 
   for (let i = 0; i < count; i++) {
     const baseBearing = (360 / count) * i;
-    // Reduce jitter for more circular routes
-    const jitter = Math.random() * 12 - 6; // ±6° instead of ±15°
+    // Jitter for variety in waypoint placement
+    const jitter = Math.random() * 24 - 12; // ±12° for more variation
     const bearingDeg = baseBearing + jitter;
 
     const point = destinationPoint(origin, radiusKm, bearingDeg);

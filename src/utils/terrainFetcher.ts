@@ -204,7 +204,10 @@ function selectDistributedWaypoints(
       return distDiffA - distDiffB;
     });
 
-    waypoints[i] = sectorCandidates[0].point;
+    // Pick randomly from top candidates for variety
+    const topN = Math.min(3, sectorCandidates.length);
+    const selectedIdx = Math.floor(Math.random() * topN);
+    waypoints[i] = sectorCandidates[selectedIdx].point;
     populatedSectors++;
   }
 
