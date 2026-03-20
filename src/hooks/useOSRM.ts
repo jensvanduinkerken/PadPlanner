@@ -1,7 +1,9 @@
 import type { LatLng, RouteResult } from '../types/route';
 import { generateWaypoints, targetDistanceKm } from '../utils/waypointMath';
 
-const OSRM_API = 'https://router.project-osrm.org/route/v1/foot';
+// Use wheelchair routing mode - it prioritizes pedestrian paths and avoids highways
+// Much better for walking routes than foot mode
+const OSRM_API = 'https://router.project-osrm.org/route/v1/wheelchair';
 
 export function useOSRM() {
   async function generateRoute(origin: LatLng, desiredMinutes: number): Promise<RouteResult> {
