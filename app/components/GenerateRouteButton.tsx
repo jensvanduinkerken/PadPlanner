@@ -40,7 +40,7 @@ export default function GenerateRouteButton({
       type="submit"
       disabled={isGeneratingRoute || disabled}
       onClick={onSubmit ? handleClick : undefined}
-      className={`w-full bg-amber-700 hover:bg-amber-800 disabled:bg-amber-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-md transition-colors flex justify-center items-center ${className}`}
+      className={`btn-primary w-full flex justify-center items-center ${className}`}
       data-umami-event={umamiEventName}
       {...umamiDataAttributes}
     >
@@ -48,7 +48,7 @@ export default function GenerateRouteButton({
         className={`inline-block mr-2 ${
           isGeneratingRoute ? "animate-pulse" : ""
         }`}
-        size={16}
+        size={18}
       />
       {isGeneratingRoute ? t("generating") : t("generateRoute")}
     </button>

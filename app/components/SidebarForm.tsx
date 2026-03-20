@@ -101,9 +101,11 @@ export default function SidebarForm() {
   return (
     <form
       onSubmit={handleGenerateRoute}
-      className="flex flex-col gap-4 flex-grow"
+      className="flex flex-col gap-5 flex-grow"
     >
-      {/* Toggling between time and distance mode */}
+      {/* Mode Toggle */}
+      <section className="card p-4 space-y-3">
+        <h2 className="section-title text-base">⚙️ {t("routeSettings")}</h2>
       <div className="w-full flex gap-2">
         <ToggleModeButton
           text={t("distanceMode")}
@@ -133,7 +135,7 @@ export default function SidebarForm() {
               {t("desiredDistance")}
             </label>
             <div className="relative">
-              <Ruler className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Ruler className="absolute left-3 top-1/2 transform -translate-y-1/2 text-amber-400 h-4 w-4" />
               <input
                 id="distance"
                 name="distance"
@@ -158,7 +160,7 @@ export default function SidebarForm() {
                 {t("desiredDuration")}
               </label>
               <div className="relative">
-                <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-amber-400 h-4 w-4" />
                 <input
                   id="time"
                   name="time"
@@ -194,10 +196,12 @@ export default function SidebarForm() {
             </div>
           </div>
         )}
+      </section>
+
+      {/* Location Card */}
+      <section className="card p-4 space-y-3">
+        <h2 className="section-title text-base">📍 {t("startingLocation")}</h2>
         <div>
-          <label className="block text-sm font-medium text-amber-900 mb-2">
-            {t("startingLocation")}
-          </label>
           <div className="flex gap-1">
             <div className="flex-1">
               <LocationSearch
@@ -227,9 +231,10 @@ export default function SidebarForm() {
             </button>
           </div>
         </div>
+      </section>
 
-        {/* Submit button or Accept/Reset buttons */}
-        <div className="mt-10 hidden lg:block">
+      {/* Action Buttons - Desktop only */}
+      <div className="hidden lg:block mt-auto pt-4">
           {generatedRoute ? (
             <div className="flex gap-2 flex-wrap">
               {!isRouteAccepted && (
@@ -249,9 +254,10 @@ export default function SidebarForm() {
             <GenerateRouteButton
               isGeneratingRoute={isGeneratingRoute}
               umamiEventData={{ source: "sidebar" }}
+              className="w-full"
             />
           )}
-        </div>
+      </div>
       </div>
     </form>
   );

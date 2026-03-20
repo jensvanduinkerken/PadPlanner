@@ -27,8 +27,9 @@ label {
 }
 
 input:is([type="number"]),
-input:is([type="text"]) {
-  @apply p-2 border rounded bg-white border-amber-200 w-full text-amber-900 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder:text-amber-400;
+input:is([type="text"]),
+select {
+  @apply py-3 px-4 rounded-lg border border-amber-200 bg-white w-full text-amber-900 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder:text-amber-400;
 }
 
 button:disabled {
@@ -107,6 +108,72 @@ input[type="range"]:disabled {
   border-radius: 50%;
   animation: pulse-location 2s ease-out infinite;
   z-index: 1;
+}
+
+/* Card System */
+.card {
+  @apply bg-white rounded-xl shadow-sm border border-amber-100;
+}
+
+.card-lg {
+  @apply bg-white rounded-2xl shadow-md border border-amber-100;
+}
+
+/* Button System */
+.btn-primary {
+  @apply bg-amber-700 hover:bg-amber-800 text-white font-semibold py-3 px-6 rounded-xl transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply bg-white hover:bg-amber-50 text-amber-900 font-semibold py-2 px-4 rounded-lg border border-amber-200 transition-all;
+}
+
+.btn-sm {
+  @apply py-2 px-3 text-sm;
+}
+
+/* Typography */
+.section-title {
+  @apply text-lg font-bold text-amber-900 flex items-center gap-2;
+}
+
+.body-text {
+  @apply text-sm text-amber-800;
+}
+
+.text-label {
+  @apply text-xs font-medium text-amber-600 uppercase tracking-wide;
+}
+
+/* Bottom Sheet Animation */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.2s ease-in;
 }
 
 /* Smooth transitions */

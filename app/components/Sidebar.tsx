@@ -85,62 +85,62 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
             }
           : undefined
       }
-      className={`primary-bg flex flex-col p-6 ${
+      className={`flex flex-col bg-white ${
         isMobile
-          ? `fixed left-0 right-0 bottom-0 z-[10000] h-[75vh] overflow-y-auto rounded-t-2xl shadow-2xl ${!isOpen ? "pointer-events-none" : ""}`
-          : "h-screen w-1/4"
+          ? `fixed left-0 right-0 bottom-0 z-[10000] h-[75vh] overflow-y-auto rounded-t-3xl shadow-2xl border-t border-amber-100 ${!isOpen ? "pointer-events-none" : ""}`
+          : "h-screen w-[360px] border-r border-amber-100"
       }`}
     >
       {/* Drag handle - only show on mobile */}
       {isMobile && (
-        <div className="w-1/4 bg-gray-400 h-1 rounded-full mx-auto my-2 -translate-y-3"></div>
-      )}
-      {/* Header */}
-      <header>
-        <div className="flex items-base lg:justify-between gap-2 mb-1 flex-wrap">
-          <h1 className="text-2xl font-bold flex items-center gap-2 text-amber-900">
-            <Footprints size={24} />
-            {t("title")}
-          </h1>
-
-          {/* Compact Language Selector */}
-          <select
-            value={locale}
-            onChange={(e) => handleLanguageChange(e.target.value)}
-            className="text-xs w-full xl:w-fit px-2 py-1 rounded border bg-white border-amber-200 text-amber-900"
-            title={t("language")}
-          >
-            <option value="en">EN</option>
-            <option value="nl">NL</option>
-          </select>
+        <div className="flex justify-center pt-3 pb-2">
+          <div className="w-12 h-1 rounded-full bg-amber-200"></div>
         </div>
+      )}
 
-        <h2 className="text-sm text-extra mt-1 mb-4">
-          {t("subtitle")}{" "}
-          <a
-            className="underline"
-            target="_blank"
-            href="https://jens.vanduinkerken.net"
-          >
-            {t("authorLink")}
-          </a>
-        </h2>
-      </header>
+      {/* Main content with proper spacing */}
+      <div className={`flex flex-col flex-1 ${isMobile ? "p-4" : "p-6"} gap-6`}>
+        {/* Header */}
+        <header className="border-b border-amber-100 pb-4">
+          <div className="flex justify-between items-start mb-2">
+            <h1 className="text-2xl font-bold flex items-center gap-2 text-amber-900">
+              <Footprints size={24} />
+              {t("title")}
+            </h1>
+            <select
+              value={locale}
+              onChange={(e) => handleLanguageChange(e.target.value)}
+              className="text-xs py-1 px-2 rounded-md border bg-white border-amber-200 text-amber-900"
+              title={t("language")}
+            >
+              <option value="en">EN</option>
+              <option value="nl">NL</option>
+            </select>
+          </div>
+          <p className="text-sm text-amber-600">
+            {t("subtitle")}{" "}
+            <a
+              className="underline hover:text-amber-700 font-medium"
+              target="_blank"
+              href="https://jens.vanduinkerken.net"
+            >
+              {t("authorLink")}
+            </a>
+          </p>
+        </header>
 
-      {/* Separator element */}
-      <div className="border-t border-amber-200 my-4" />
+        {/* Form for adjusting route generation settings */}
+        <SidebarForm />
 
-      {/* Form for adjusting route generation settings */}
-      <SidebarForm />
-
-      {/* Footer */}
-      <footer className="mt-auto text-xs text-extra leading-relaxed space-y-4">
-        <h3 className="text-sm font-medium text-amber-900 mb-2">
-          {t("aboutTitle")}
-        </h3>
-        <p>{t("aboutDescription1")}</p>
-        <p>{t("aboutDescription2")}</p>
-      </footer>
+        {/* Footer */}
+        <footer className="mt-auto border-t border-amber-100 pt-4 text-xs text-amber-700 leading-relaxed space-y-3">
+          <h3 className="text-sm font-bold text-amber-900">
+            {t("aboutTitle")}
+          </h3>
+          <p className="text-amber-700">{t("aboutDescription1")}</p>
+          <p className="text-amber-700">{t("aboutDescription2")}</p>
+        </footer>
+      </div>
     </div>
   );
 }
