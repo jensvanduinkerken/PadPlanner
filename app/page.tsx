@@ -10,8 +10,6 @@ import TrackUserLocationButton from "./components/TrackUserLocationButton";
 import DownloadButton from "./components/DownloadButton";
 import FloatingButton from "./components/FloatingButton";
 import FullscreenButton from "./components/FullscreenButton";
-import ShareButton from "./components/ShareButton";
-import { useRouteFromUrl } from "./hooks/useRouteFromUrl";
 import { useLocationStore } from "@/stores/store";
 
 export default function Home() {
@@ -29,9 +27,6 @@ export default function Home() {
     initializeFromStorage();
   }, [initializeFromStorage]);
 
-  // Load route from URL if present
-  const { isLoading: isLoadingRoute } = useRouteFromUrl();
-
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -40,7 +35,7 @@ export default function Home() {
     <main>
       {/* Floating Buttons - Top Right */}
       <div className="fixed top-4 right-4 z-[1001] lg:top-6 lg:right-6 flex flex-col items-end gap-2">
-        {!isSidebarOpen && !isLoadingRoute && !isFullscreen && (
+        {!isSidebarOpen && !isFullscreen && (
           <>
             <FloatingButton
               onClick={toggleSidebar}
@@ -53,7 +48,6 @@ export default function Home() {
             </FloatingButton>
             <TrackUserLocationButton />
             <DownloadButton />
-            <ShareButton />
           </>
         )}
         <FullscreenButton
@@ -80,13 +74,7 @@ export default function Home() {
           />
         )}
 
-        {isLoadingRoute ? (
-          <div className="flex-1 flex items-center justify-center text-sm text-gray-500">
-            Loading route...
-          </div>
-        ) : (
-          <MapWrapper />
-        )}
+        <MapWrapper />
       </div>
 
       {!isFullscreen && generatedRoute?.distance != null && (

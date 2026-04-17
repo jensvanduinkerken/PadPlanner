@@ -128,7 +128,7 @@ const Map = () => {
 
       marker.bindPopup(popupContent).openPopup();
     }
-  }, [startLocation, generatedRoute, isRouteAccepted, t]);
+  }, [startLocation, generatedRoute, isRouteAccepted]);
 
   const mapCenter = normalizeToLatLngTuple(
     (isTrackingLocation && userLocation) ||

@@ -22,16 +22,14 @@ type LocationStore = {
   startLocation: LatLngExpression | LatLngTuple | null;
   userLocation: LatLngTuple | null;
   generatedRoute: GeneratedRoute | null;
-  routeId: string | null;
   isRouteAccepted: boolean;
   isTrackingLocation: boolean;
   setStartLocation: (location: LatLngExpression | LatLngTuple | null) => void;
   setUserLocation: (location: LatLngTuple | null) => void;
   setGeneratedRoute: (route: GeneratedRoute | null) => void;
-  setRouteId: (id: string | null) => void;
   updateWaypoint: (index: number, newPosition: [number, number]) => void;
   resetRoute: () => void;
-  acceptRoute: () => Promise<void>;
+  acceptRoute: () => void;
   setLocationTracking: (isTracking: boolean) => void;
   initializeFromStorage: () => void;
 };
@@ -40,7 +38,6 @@ export const useLocationStore = create<LocationStore>((set, get) => ({
   startLocation: null,
   userLocation: null,
   generatedRoute: null,
-  routeId: null,
   isRouteAccepted: false,
   isTrackingLocation: false,
   setStartLocation: (startLocation) => {
@@ -62,37 +59,14 @@ export const useLocationStore = create<LocationStore>((set, get) => ({
       startLocation: state.startLocation || userLocation,
     })),
   setGeneratedRoute: (generatedRoute) => set({ generatedRoute }),
-  setRouteId: (routeId) => set({ routeId }),
   resetRoute: () => {
-    // Clear route ID from URL
     if (typeof window !== "undefined") {
       window.history.pushState({}, "", "/");
     }
-    set({ generatedRoute: null, routeId: null, isRouteAccepted: false });
+    set({ generatedRoute: null, isRouteAccepted: false });
   },
-  acceptRoute: async () => {
-    const { generatedRoute } = get();
+  acceptRoute: () => {
     set({ isRouteAccepted: true });
-
-    if (!generatedRoute) return;
-
-    try {
-      // Only store coordinates and distance — waypoints are ephemeral editing
-      // state and must not be persisted (waypoints[0] would expose home location).
-      const { waypoints: _waypoints, ...routeToSave } = generatedRoute;
-      const response = await fetch("/api/routes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(routeToSave),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        set({ routeId: data.id });
-        window.history.pushState({}, "", `/?route=${data.id}`);
-      }
-    } catch (error) {
-      console.error("Failed to save route to database:", error);
-    }
   },
   setLocationTracking: (isTrackingLocation) => set({ isTrackingLocation }),
   initializeFromStorage: () => {

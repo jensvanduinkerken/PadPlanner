@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronUp } from "lucide-react";
 import SidebarForm from "./SidebarForm";
-import { useLocationStore, useRouteFormStore } from "@/stores";
+import { useLocationStore, useRouteFormStore, Mode } from "@/stores";
 
 interface MobileBottomSheetProps {
   isOpen?: boolean;
@@ -63,7 +63,7 @@ export default function MobileBottomSheet({
 
   // Get distance label
   const getDistanceLabel = () => {
-    if (mode === "distance") return `${distance} km`;
+    if (mode === Mode.DISTANCE) return `${distance} km`;
     return `${distance} min`;
   };
 
