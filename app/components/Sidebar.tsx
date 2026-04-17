@@ -101,32 +101,39 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
       {/* Main content with proper spacing */}
       <div className={`flex flex-col flex-1 ${isMobile ? "p-4" : "p-6"} gap-6`}>
         {/* Header */}
-        <header className="border-b border-amber-100 pb-4">
-          <div className="flex justify-between items-start mb-2">
+        <header className="border-b border-amber-100 pb-6">
+          <div className="mb-4">
             <h1 className="text-2xl font-bold flex items-center gap-2 text-amber-900">
               <Footprints size={24} />
               {t("title")}
             </h1>
+            <p className="text-sm text-amber-600 mt-2">
+              {t("subtitle")}{" "}
+              <a
+                className="underline hover:text-amber-700 font-medium"
+                target="_blank"
+                href="https://jens.vanduinkerken.net"
+              >
+                {t("authorLink")}
+              </a>
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <label htmlFor="language-select" className="text-sm font-medium text-amber-900">
+              {t("language")}:
+            </label>
             <select
+              id="language-select"
               value={locale}
               onChange={(e) => handleLanguageChange(e.target.value)}
-              className="text-xs py-1 px-2 rounded-md border bg-white border-amber-200 text-amber-900"
+              className="text-sm py-2 px-3 rounded-md border bg-white border-amber-200 text-amber-900 font-medium"
               title={t("language")}
             >
-              <option value="en">EN</option>
-              <option value="nl">NL</option>
+              <option value="en">English</option>
+              <option value="nl">Nederlands</option>
             </select>
           </div>
-          <p className="text-sm text-amber-600">
-            {t("subtitle")}{" "}
-            <a
-              className="underline hover:text-amber-700 font-medium"
-              target="_blank"
-              href="https://jens.vanduinkerken.net"
-            >
-              {t("authorLink")}
-            </a>
-          </p>
         </header>
 
         {/* Form for adjusting route generation settings */}

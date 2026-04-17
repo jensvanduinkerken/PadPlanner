@@ -1,7 +1,7 @@
 {
-  "name": "PadPlanner - Free Route Generator",
+  "name": "PadPlanner - Free Random Route Generator",
   "short_name": "PadPlanner",
-  "description": "PadPlanner is a free route generator that creates random circular walking routes. Generate random routes based on your desired distance or time and start exploring.",
+  "description": "Generate beautiful random circular walking, running, and cycling routes. Free route planner with distance and time-based options. No login required.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

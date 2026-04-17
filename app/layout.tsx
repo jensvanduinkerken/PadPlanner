@@ -58,9 +58,30 @@ export const metadata: Metadata = {
 const websiteSchema: WithContext<WebSite> = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Route Random",
+  name: "PadPlanner",
   url: mySite,
   description: description,
+  inLanguage: ["en", "nl"],
+};
+
+const softwareApplicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "PadPlanner",
+  description: description,
+  url: mySite,
+  image: image,
+  applicationCategory: "UtilityApplication",
+  operatingSystem: "Web",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "EUR",
+  },
+  author: {
+    "@type": "Person",
+    name: "Jens van Duinkerken",
+  },
 };
 
 const BreadcrumbListSchema: WithContext<BreadcrumbList> = {
@@ -211,6 +232,12 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(websiteSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(softwareApplicationSchema),
           }}
         />
         <script
