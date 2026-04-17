@@ -15,6 +15,7 @@ export default function SidebarForm() {
   const t = useTranslations("SidebarForm");
 
   const {
+    setStartLocation,
     setUserLocation,
     generatedRoute,
     resetRoute,
@@ -33,7 +34,7 @@ export default function SidebarForm() {
 
   const handleLocationSelect = (location: { lat: number; lon: number }) => {
     const newLocation: [number, number] = [location.lat, location.lon];
-    setUserLocation(newLocation);
+    setStartLocation(newLocation);
   };
 
   const handleGenerateRoute = async (e: React.FormEvent) => {
