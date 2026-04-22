@@ -233,8 +233,8 @@ export default function SidebarForm() {
           </div>
       </section>
 
-      {/* Action Buttons - Desktop only */}
-      <div className="hidden lg:block mt-auto pt-4">
+      {/* Action Buttons */}
+      <div className="mt-auto pt-4">
           {generatedRoute ? (
             <div className="flex gap-2 flex-wrap">
               {!isRouteAccepted && (
