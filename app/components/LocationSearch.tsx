@@ -85,9 +85,8 @@ export default function LocationSearch({
         break;
       case "Enter":
         e.preventDefault();
-        if (selectedIndex >= 0) {
-          handleLocationSelect(suggestions[selectedIndex]);
-        }
+        const indexToSelect = selectedIndex >= 0 ? selectedIndex : 0;
+        handleLocationSelect(suggestions[indexToSelect]);
         break;
       case "Escape":
         setShowSuggestions(false);
