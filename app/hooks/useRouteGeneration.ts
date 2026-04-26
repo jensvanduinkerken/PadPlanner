@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocationStore, useRouteFormStore, Mode } from "../../stores";
+import { useLocationStore, useRouteFormStore, Mode, RouteType } from "../../stores";
 import { calculateDistanceFromTime } from "../utils/routeCalculations";
 
 export function useRouteGeneration() {
@@ -9,6 +9,7 @@ export function useRouteGeneration() {
   const {
     mode,
     pace,
+    routeType,
     distance,
     time,
     correctionFactor,
@@ -39,7 +40,13 @@ export function useRouteGeneration() {
         return;
       }
       const timeMinutes = parseFloat(timeInput);
-      finalDistance = calculateDistanceFromTime(timeMinutes, pace);
+      // For AUTO routes, use a default speed of 50 km/h
+      if (routeType === RouteType.AUTO) {
+        const timeHours = timeMinutes / 60;
+        finalDistance = 50 * timeHours;
+      } else {
+        finalDistance = calculateDistanceFromTime(timeMinutes, pace);
+      }
     }
 
     // Validate required fields
@@ -55,6 +62,7 @@ export function useRouteGeneration() {
         startLocation: startLocation,
         distance: finalDistance,
         correctionFactor: correctionFactor,
+        routeType: routeType,
       };
 
       const response = await fetch("/api/generateroute", {

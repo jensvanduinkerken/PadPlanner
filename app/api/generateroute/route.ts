@@ -7,6 +7,7 @@ import {
   generateWalkingRoute,
   generateRoundTripRoute,
 } from "../../services/orsService";
+import { RouteType } from "../../../stores";
 
 // Configuration for distance tolerance
 const TOLERANCE_CONFIG = {
@@ -14,6 +15,18 @@ const TOLERANCE_CONFIG = {
   minToleranceMeters: 500,
   maxToleranceMeters: 2000,
 };
+
+/**
+ * Convert route type to ORS routing profile
+ */
+function getRoutingProfile(
+  routeType?: string
+): "foot-walking" | "driving-car" {
+  if (routeType === RouteType.AUTO) {
+    return "driving-car";
+  }
+  return "foot-walking";
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,7 +40,11 @@ export async function POST(request: NextRequest) {
       useRoundTrip = true, // Default to using ORS round-trip
       seed,
       preferences,
+      routeType,
     } = body;
+
+    // Determine routing profile based on route type
+    const profile = getRoutingProfile(routeType);
 
     // Validate ORS API key
     const orsApiKey = process.env.ORS_API_KEY;
@@ -44,7 +61,7 @@ export async function POST(request: NextRequest) {
     if (regenerate && waypoints) {
       // Use existing waypoints for regeneration (user moved a marker)
       finalWaypoints = waypoints;
-      route = await generateWalkingRoute(waypoints, orsApiKey);
+      route = await generateWalkingRoute(waypoints, orsApiKey, profile);
     } else {
       if (!startLocation) {
         return NextResponse.json(
@@ -112,7 +129,8 @@ export async function POST(request: NextRequest) {
               orsApiKey,
               numPoints,
               attemptSeed,
-              preferences
+              preferences,
+              profile
             );
 
             const distanceDiff = Math.abs(
@@ -172,7 +190,7 @@ export async function POST(request: NextRequest) {
           undefined,
           correctionFactor || 0.65
         );
-        route = await generateWalkingRoute(finalWaypoints, orsApiKey);
+        route = await generateWalkingRoute(finalWaypoints, orsApiKey, profile);
       }
     }
 
@@ -181,6 +199,8 @@ export async function POST(request: NextRequest) {
       route: {
         coordinates: route.coordinates,
         distance: route.distance,
+        duration: route.duration,
+        speedLimits: route.speedLimits,
         waypoints: finalWaypoints
           ? finalWaypoints.map(([lng, lat]) => [lat, lng] as [number, number])
           : undefined,

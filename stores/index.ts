@@ -1,5 +1,5 @@
 // Location store exports
-export { useLocationStore, Mode, Pace } from "./store";
+export { useLocationStore, Mode, Pace, RouteType } from "./store";
 export type { GeneratedRoute } from "./store";
 
 // Form store exports

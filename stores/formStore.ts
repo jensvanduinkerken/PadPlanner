@@ -1,9 +1,10 @@
 import { create } from "zustand";
-import { Mode, Pace } from "./store";
+import { Mode, Pace, RouteType } from "./store";
 
 export interface RouteFormData {
   mode: Mode;
   pace: Pace;
+  routeType: RouteType;
   distance: string;
   time: string;
   correctionFactor: number;
@@ -13,6 +14,7 @@ export interface RouteFormData {
 interface RouteFormStore extends RouteFormData {
   setMode: (mode: Mode) => void;
   setPace: (pace: Pace) => void;
+  setRouteType: (routeType: RouteType) => void;
   setDistance: (distance: string) => void;
   setTime: (time: string) => void;
   setCorrectionFactor: (factor: number) => void;
@@ -24,6 +26,7 @@ interface RouteFormStore extends RouteFormData {
 const defaultFormData: RouteFormData = {
   mode: Mode.DISTANCE,
   pace: Pace.WALKING,
+  routeType: RouteType.WALKING,
   distance: "5",
   time: "30",
   correctionFactor: 0.65,
@@ -41,6 +44,10 @@ export const useRouteFormStore = create<RouteFormStore>((set, get) => ({
 
   setPace: (pace) => {
     set({ pace });
+  },
+
+  setRouteType: (routeType) => {
+    set({ routeType });
   },
 
   setDistance: (distance) => {

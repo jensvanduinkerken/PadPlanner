@@ -6,7 +6,7 @@ import ToggleModeButton from "./ToggleModeButton";
 import GenerateRouteButton from "./GenerateRouteButton";
 import AcceptRouteButton from "./AcceptRouteButton";
 import ResetRouteButton from "./ResetRouteButton";
-import { useLocationStore, Mode, Pace, useRouteFormStore } from "../../stores";
+import { useLocationStore, Mode, Pace, RouteType, useRouteFormStore } from "../../stores";
 import LocationSearch from "./LocationSearch";
 import { useRouteGeneration } from "../hooks/useRouteGeneration";
 import { useTranslations } from "next-intl";
@@ -23,7 +23,7 @@ export default function SidebarForm() {
     isRouteAccepted,
   } = useLocationStore();
 
-  const { mode, pace, distance, time, setMode, setPace, setDistance, setTime } =
+  const { mode, pace, routeType, distance, time, setMode, setPace, setRouteType, setDistance, setTime } =
     useRouteFormStore();
 
   const { generateRoute, isGeneratingRoute } = useRouteGeneration();
@@ -126,6 +126,24 @@ export default function SidebarForm() {
           }}
         />
       </div>
+      <div className="w-full flex gap-2">
+        <ToggleModeButton
+          text={t("walkingRoute")}
+          selected={routeType === RouteType.WALKING}
+          disabled={!!generatedRoute}
+          onClick={() => {
+            setRouteType(RouteType.WALKING);
+          }}
+        />
+        <ToggleModeButton
+          text={t("autoRoute")}
+          selected={routeType === RouteType.AUTO}
+          disabled={!!generatedRoute}
+          onClick={() => {
+            setRouteType(RouteType.AUTO);
+          }}
+        />
+      </div>
       <div className="flex flex-col gap-4">
         {mode === Mode.DISTANCE ? (
           <div>
@@ -178,24 +196,26 @@ export default function SidebarForm() {
                 />
               </div>
             </div>
-            <div>
-              {/* Pacing selector */}
-              <label htmlFor="pace" className="block text-sm font-medium mb-1 ">
-                {t("pace")}
-              </label>
-              <select
-                className="w-full p-2 border rounded bg-white border-amber-200 text-amber-900"
-                disabled={!!generatedRoute}
-                onChange={(e) => {
-                  setPace(e.target.value as Pace);
-                }}
-                value={pace}
-                id="pace"
-                name="pace"
-              >
-                {paceItems}
-              </select>
-            </div>
+            {routeType === RouteType.WALKING && (
+              <div>
+                {/* Pacing selector - only for walking routes */}
+                <label htmlFor="pace" className="block text-sm font-medium mb-1 ">
+                  {t("pace")}
+                </label>
+                <select
+                  className="w-full p-2 border rounded bg-white border-amber-200 text-amber-900"
+                  disabled={!!generatedRoute}
+                  onChange={(e) => {
+                    setPace(e.target.value as Pace);
+                  }}
+                  value={pace}
+                  id="pace"
+                  name="pace"
+                >
+                  {paceItems}
+                </select>
+              </div>
+            )}
           </div>
         )}
       </div>

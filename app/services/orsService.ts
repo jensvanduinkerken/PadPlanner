@@ -27,6 +27,8 @@ export interface RouteResponse {
     max: number;
     profile: number[];
   };
+  speedLimits?: number[];
+  duration?: number;
 }
 
 export interface RoundTripOptions {
@@ -52,16 +54,21 @@ export async function generateRoundTripRoute(
   apiKey: string,
   numPoints?: number,
   seed?: number,
-  preferences?: RoutePreferences
+  preferences?: RoutePreferences,
+  profile: "foot-walking" | "driving-car" = "foot-walking"
 ): Promise<RouteResponse> {
   const actualNumPoints = numPoints ?? 6;
   const url =
-    "https://api.openrouteservice.org/v2/directions/foot-walking/geojson";
+    `https://api.openrouteservice.org/v2/directions/${profile}/geojson`;
 
-  // Build avoid_features based on user preferences
+  // Build avoid_features based on user preferences and profile
   const avoidFeatures: string[] = ["ferries"];
-  if (preferences?.avoidSteps) avoidFeatures.push("steps");
-  if (preferences?.avoidHighways) avoidFeatures.push("highways");
+  if (profile === "foot-walking") {
+    // For walking, avoid steps by default
+    avoidFeatures.push("steps");
+    if (preferences?.avoidHighways) avoidFeatures.push("highways");
+  }
+  // For driving-car, keep minimal avoid_features to ensure route generation works
 
   // Adjust numPoints based on complexity preference
   let adjustedNumPoints = actualNumPoints;
@@ -70,11 +77,15 @@ export async function generateRoundTripRoute(
   if (preferences?.complexity === "complex")
     adjustedNumPoints = Math.min(12, actualNumPoints + 3);
 
+  // Build extra_info based on profile
+  // Note: ORS API does not support maxspeed in extra_info
+  const extraInfo = ["surface", "waytype", "steepness"];
+
   const requestBody = {
     coordinates: [[startLng, startLat]],
     preference: "recommended",
     elevation: true,
-    extra_info: ["surface", "waytype", "steepness"],
+    extra_info: extraInfo,
     options: {
       round_trip: {
         length: targetDistance,
@@ -117,10 +128,20 @@ export async function generateRoundTripRoute(
 
     const elevation = extractElevationData(data);
 
+    // Extract speed limits and duration for driving routes
+    let speedLimits: number[] | undefined;
+    let duration: number | undefined;
+    if (profile === "driving-car") {
+      speedLimits = extractSpeedLimits(feature.properties);
+      duration = extractDuration(feature.properties);
+    }
+
     return {
       coordinates,
       distance: totalDistance,
       elevation,
+      speedLimits,
+      duration,
     };
   } catch (error) {
     console.error("Error calling ORS round-trip API:", error);
@@ -133,17 +154,29 @@ export async function generateRoundTripRoute(
  */
 export async function generateWalkingRoute(
   waypoints: [number, number][],
-  apiKey: string
+  apiKey: string,
+  profile: "foot-walking" | "driving-car" = "foot-walking"
 ): Promise<RouteResponse> {
   const url =
-    "https://api.openrouteservice.org/v2/directions/foot-walking/geojson";
+    `https://api.openrouteservice.org/v2/directions/${profile}/geojson`;
+
+  // Build extra_info based on profile
+  // Note: ORS API does not support maxspeed in extra_info
+  const extraInfo = ["surface", "waytype", "steepness"];
+
+  // Build avoid_features based on profile
+  const avoidFeatures = ["ferries"];
+  if (profile === "foot-walking") {
+    avoidFeatures.push("steps");
+  }
+  // For driving-car, keep minimal avoid_features
 
   const requestBody = {
     coordinates: waypoints,
     elevation: true,
-    extra_info: ["surface", "waytype", "steepness"],
+    extra_info: extraInfo,
     options: {
-      avoid_features: ["ferries", "steps"],
+      avoid_features: avoidFeatures,
     },
     preference: "recommended",
     units: "km",
@@ -182,15 +215,78 @@ export async function generateWalkingRoute(
 
     const elevation = extractElevationData(data);
 
+    // Extract speed limits and duration for driving routes
+    let speedLimits: number[] | undefined;
+    let duration: number | undefined;
+    if (profile === "driving-car") {
+      speedLimits = extractSpeedLimits(feature.properties);
+      duration = extractDuration(feature.properties);
+    }
+
     return {
       coordinates,
       distance: totalDistance,
       elevation,
+      speedLimits,
+      duration,
     };
   } catch (error) {
     console.error("Error calling ORS API:", error);
     throw error;
   }
+}
+
+/**
+ * Extract speed limits from ORS route response (for driving-car profile)
+ */
+function extractSpeedLimits(
+  properties: {
+    segments: Array<{
+      distance: number;
+      ascent?: number;
+      descent?: number;
+      maxspeed?: number[];
+    }>;
+  }
+): number[] {
+  const speedLimits: number[] = [];
+
+  if (properties.segments) {
+    properties.segments.forEach((segment) => {
+      if (segment.maxspeed && Array.isArray(segment.maxspeed)) {
+        // ORS returns maxspeed for each coordinate in the segment
+        speedLimits.push(...segment.maxspeed);
+      }
+    });
+  }
+
+  return speedLimits.length > 0 ? speedLimits : [];
+}
+
+/**
+ * Extract duration from ORS route response (for driving-car profile)
+ */
+function extractDuration(
+  properties: {
+    segments: Array<{
+      distance: number;
+      ascent?: number;
+      descent?: number;
+      duration?: number;
+    }>;
+  }
+): number | undefined {
+  let totalDuration = 0;
+
+  if (properties.segments) {
+    properties.segments.forEach((segment) => {
+      if (segment.duration !== undefined) {
+        totalDuration += segment.duration;
+      }
+    });
+  }
+
+  return totalDuration > 0 ? totalDuration : undefined;
 }
 
 /**

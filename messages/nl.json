@@ -20,6 +20,8 @@
     "walkingPace": "Wandeltempo (5 km/u)",
     "runningPace": "Hardlooptempo (10 km/u)",
     "cyclingPace": "Fietstempo (15 km/u)",
+    "walkingRoute": "Wandelroutes",
+    "autoRoute": "Auto routes",
     "startingLocation": "Start locatie",
     "searchLocationPlaceholder": "Zoek startlocatie...",
     "useCurrentLocation": "Gebruik huidige locatie",

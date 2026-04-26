@@ -20,6 +20,8 @@
     "walkingPace": "Walking Pace (5 km/h)",
     "runningPace": "Running Pace (10 km/h)",
     "cyclingPace": "Cycling Pace (15 km/h)",
+    "walkingRoute": "Walking Routes",
+    "autoRoute": "Auto Routes",
     "startingLocation": "Starting Location",
     "searchLocationPlaceholder": "Search starting location...",
     "useCurrentLocation": "Use current location",

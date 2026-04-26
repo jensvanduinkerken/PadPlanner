@@ -12,10 +12,17 @@ enum Pace {
   CYCLING = "cycling",
 }
 
+enum RouteType {
+  WALKING = "walking",
+  AUTO = "auto",
+}
+
 type GeneratedRoute = {
   coordinates: [number, number][];
   distance: number;
   waypoints?: [number, number][];
+  duration?: number;
+  speedLimits?: number[];
 };
 
 type LocationStore = {
@@ -94,5 +101,5 @@ export const useLocationStore = create<LocationStore>((set, get) => ({
   },
 }));
 
-export { Mode, Pace };
+export { Mode, Pace, RouteType };
 export type { GeneratedRoute };
