@@ -43,3 +43,7 @@ next-env.d.ts
 # temp
 old-app
 .env*.local
+
+# Generated service worker files
+public/sw.js
+public/workbox-*.js
