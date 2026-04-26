@@ -64,6 +64,7 @@ export default function SidebarForm() {
         const { latitude, longitude } = position.coords;
         const newLocation: [number, number] = [latitude, longitude];
         setUserLocation(newLocation);
+        setStartLocation(newLocation);
         setIsGettingLocation(false);
         setLocationError(false);
       },

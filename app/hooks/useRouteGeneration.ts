@@ -4,7 +4,7 @@ import { useLocationStore, useRouteFormStore, Mode } from "../../stores";
 import { calculateDistanceFromTime } from "../utils/routeCalculations";
 
 export function useRouteGeneration() {
-  const { startLocation, userLocation, setGeneratedRoute } = useLocationStore();
+  const { startLocation, setGeneratedRoute } = useLocationStore();
 
   const {
     mode,
@@ -42,11 +42,8 @@ export function useRouteGeneration() {
       finalDistance = calculateDistanceFromTime(timeMinutes, pace);
     }
 
-    // Use userLocation if available (live tracking), otherwise use startLocation
-    const locationForRoute = userLocation || startLocation;
-
     // Validate required fields
-    if (!locationForRoute) {
+    if (!startLocation) {
       alert("Please select a starting location");
       return;
     }
@@ -55,7 +52,7 @@ export function useRouteGeneration() {
       setIsGeneratingRoute(true);
 
       const requestBody = {
-        startLocation: locationForRoute,
+        startLocation: startLocation,
         distance: finalDistance,
         correctionFactor: correctionFactor,
       };
